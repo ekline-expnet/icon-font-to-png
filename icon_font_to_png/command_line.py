@@ -174,7 +174,6 @@ def run(arguments):
                               export_dir=args.export_dir,
                               wrapper_icon=args.wrapper_icon)
 
-    print("All done")
 
 
 # Isolated for use in wrapper scripts
