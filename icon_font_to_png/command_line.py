@@ -21,7 +21,11 @@ def run(arguments):
         choices=[x for x in AVAILABLE_ICON_FONTS.keys()],
         help="download latest icon font and exit"
     )
-
+    parser.add_argument(
+        '-v', '--verbose',
+        action='store_true',
+        help='verbose output (default quiet/no output)'
+    )
     required_group = parser.add_argument_group("required arguments")
     required_group.add_argument(
         '--ttf',
@@ -159,7 +163,8 @@ def run(arguments):
                 # Use icon name as filename
                 filename = str(icon) + '.png'
 
-        print("Exporting icon '{icon}' as '{filename}'"
+        if args.verbose:
+            print("Exporting icon '{icon}' as '{filename}'"
               "({size}x{size} pixels)".format(icon=icon,
                                               filename=filename,
                                               size=args.size))
@@ -169,7 +174,6 @@ def run(arguments):
                               export_dir=args.export_dir,
                               wrapper_icon=args.wrapper_icon)
 
-    print()
     print("All done")
 
 
