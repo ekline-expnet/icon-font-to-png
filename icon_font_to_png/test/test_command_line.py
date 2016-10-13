@@ -85,6 +85,33 @@ def test_icon_export(capfd):
     )
     out, err = capfd.readouterr()  # For skipping stdout
 
+def test_output_dir_option(capfd):
+    """Test output_dir option"""
+    css_file = os.path.join('files', 'font-awesome.css')
+    ttf_file = os.path.join('files', 'fontawesome-webfont.ttf')
+
+    # Export one icon
+    command_line.run(
+        '--css {css_file} --ttf {ttf_file} '
+        '--export_dir export github'.format(
+            css_file=css_file, ttf_file=ttf_file
+        ).split()
+    )
+    out, err = capfd.readouterr()  # For skipping stdout
+
+    assert os.path.isfile(os.path.join('export', 'github.png'))
+
+    # Export multiple icons
+    command_line.run(
+        '--css {css_file} --ttf {ttf_file} '
+        '--export_dir export  github star'.format(
+            css_file=css_file, ttf_file=ttf_file
+        ).split()
+    )
+    out, err = capfd.readouterr()  # For skipping stdout
+
+    assert os.path.isfile(os.path.join('export', 'foo-github.png'))
+    assert os.path.isfile(os.path.join('export', 'foo-star.png'))
 
 def test_filename_option(capfd):
     """Test filename option"""
@@ -133,6 +160,9 @@ def teardown_module():
     """Delete exported icons directory and downloaded FontAwesome files"""
     if os.path.isdir('exported'):
         shutil.rmtree('exported')
+
+    if os.path.isdir('export'):
+        shutil.rmtree('export')
 
     if os.path.isfile('font-awesome.css'):
         os.remove('font-awesome.css')
