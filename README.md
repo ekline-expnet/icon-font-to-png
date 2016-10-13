@@ -64,6 +64,8 @@ exporting icons:
                         it's used as a prefix if multiple icons are exported
   --keep_prefix         do not remove common icon prefix (i.e. 'fa-arrow-
                         right' instead of 'arrow-right')
+  --export_dir          directory into which exported png files will be put
+  --wrapper_icon        name of an icon to wrap all icons with (e.g. circle-thin)
 
 ```
 
@@ -115,13 +117,13 @@ To run tests yourself run `tox` inside the repository.
 ## Contributions
 Package source code is available at [GitHub][if2p github].
 
-Feel free to use, ask, fork, star, report bugs, fix them, suggest 
+Feel free to use, ask, fork, star, report bugs, fix them, suggest
 enhancements and point out any mistakes.
 
 ## Authors
 Developed and maintained by [Pythonity][pythonity].
 
-Original version by [Michał Wojciechowski][odyniec], refactored by 
+Original version by [Michał Wojciechowski][odyniec], refactored by
 [Paweł Adamczak][pawelad].
 
 
