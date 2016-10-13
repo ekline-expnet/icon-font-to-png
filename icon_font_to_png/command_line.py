@@ -84,6 +84,13 @@ def run(arguments):
         help="directory into which icons will be exported (default: exported)"
     )
 
+    exp_group.add_argument(
+        '--wrapper_icon',
+        default='',
+        type=str,
+        help="icon to use as an outer wrapper"
+    )
+
     args = parser.parse_args(arguments)
 
     # Parse '--download' argument first
@@ -159,7 +166,8 @@ def run(arguments):
 
         icon_font.export_icon(icon=icon, filename=filename, size=args.size,
                               color=args.color, scale=args.scale,
-                              export_dir=args.export_dir)
+                              export_dir=args.export_dir,
+                              wrapper_icon=args.wrapper_icon)
 
     print()
     print("All done")

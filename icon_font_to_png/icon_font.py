@@ -92,7 +92,7 @@ class IconFont(object):
         # The use of a decrementing multiplication factor protects us from
         # getting into an infinite loop.
         """
-        Helper function to scale a font
+
         if scale == 'auto':
             scale_factor = 1
         else:
@@ -100,7 +100,7 @@ class IconFont(object):
 
         image = Image.new("RGBA", (size, size), color=(0, 0, 0, 0))
         draw = ImageDraw.Draw(image)
-
+        color = 'black'
         font = ImageFont.truetype(ttf, int(size * scale_factor))
         width, height = draw.textsize(self.css_icons[icon], font=font)
 
@@ -123,6 +123,9 @@ class IconFont(object):
                 iteration += 1
                 if iteration % 2 == 0:
                     factor *= 0.99
+
+        draw.text((float(size - width) / 2, float(size - height) / 2),
+                  self.css_icons[icon], font=font, fill=color)
         # Get bounding box
         bbox = image.getbbox()
         return font, width, height, bbox
@@ -146,7 +149,7 @@ class IconFont(object):
         :param wrapper_icon: valid icon name to use as an outer wrapper
         """
         if wrapper_icon == '':
-            self.export_icon_with_wrapper(icon=icon, size=size,
+            self.export_icon_no_wrapper(icon=icon, size=size,
                 color=color, scale=scale, filename=filename,
                 export_dir=export_dir)
         else:
@@ -174,8 +177,13 @@ class IconFont(object):
         org_size = size
         size = max(150, size)
 
-        font, width, height, bbox = self.scale_font(ttf=ttf, icon=icon,
-            size=size, scale=scale)
+        if scale == 'auto':
+            scale_factor = 1.0
+        else:
+            scale_factor = float(scale)
+
+        font, width, height, bbox = self.scale_font(ttf=self.ttf_file,
+            icon=icon, size=size, scale=scale_factor)
 
         # Create an alpha mask
         image_mask = Image.new("L", (size, size), 0)
@@ -232,6 +240,9 @@ class IconFont(object):
         :param export_dir: path to export directory
         :param wrapper_icon: valid icon name to use as an outer wrapper
         """
+        org_size = size
+        size = max(150, size)
+
         if scale == 'auto':
             scale_factor = 1.0
         else:
@@ -262,8 +273,8 @@ class IconFont(object):
         if bbox2:
             icon_image = icon_image.crop(bbox2)
 
-        border_w = int((size - (bbox[2] - bbox[0])) / 2)
-        border_h = int((size - (bbox[3] - bbox[1])) / 2)
+        border_w = int((size - (bbox2[2] - bbox2[0])) / 2)
+        border_h = int((size - (bbox2[3] - bbox2[1])) / 2)
 
         # Create output image
         out_image = Image.new("RGBA", (size, size), (0, 0, 0, 0))
