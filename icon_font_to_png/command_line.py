@@ -77,6 +77,13 @@ def run(arguments):
              "(i.e. 'fa-arrow-right' instead of 'arrow-right')"
     )
 
+    exp_group.add_argument(
+        '--export_dir',
+        default='exported',
+        type=str,
+        help="directory into which icons will be exported (default: exported)"
+    )
+
     args = parser.parse_args(arguments)
 
     # Parse '--download' argument first
@@ -151,7 +158,8 @@ def run(arguments):
                                               size=args.size))
 
         icon_font.export_icon(icon=icon, filename=filename, size=args.size,
-                              color=args.color, scale=args.scale)
+                              color=args.color, scale=args.scale,
+                              export_dir=args.export_dir)
 
     print()
     print("All done")
