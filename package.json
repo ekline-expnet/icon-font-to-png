@@ -1,0 +1,19 @@
+{
+  "name": "icon-font-to-png",
+  "version": "1.0.0",
+  "description": "convert web-font icons to png",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ekline-expnet/icon-font-to-png.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ekline-expnet/icon-font-to-png/issues"
+  },
+  "homepage": "https://github.com/ekline-expnet/icon-font-to-png#readme"
+}
